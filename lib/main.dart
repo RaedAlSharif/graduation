@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import 'AppointmentRequest.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -76,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Container(
         width: 1440,
         height: 4096+1024,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color : Color.fromRGBO(122, 238, 93, 1),
         ),
         child: Stack(
@@ -90,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                       child: Stack(
                           children: <Widget>[
-                            Positioned(
+                            const Positioned(
                                 top: 0,
                                 left: 0,
                                 child: Text('Medical Reports History', textAlign: TextAlign.left, style: TextStyle(
@@ -101,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     fontWeight: FontWeight.normal,
                                     height: 1
                                 ),)
-                            ),Positioned(
+                            ),const Positioned(
                                 top: 1.009946584701538,
                                 left: 227.11341857910156,
                                 child: Text('Contact us', textAlign: TextAlign.left, style: TextStyle(
@@ -115,15 +117,17 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),Positioned(
                                 top: 1.009946584701538,
                                 left: 340.1654052734375,
-                                child: Text('Request Appointment', textAlign: TextAlign.left, style: TextStyle(
+                                child: TextButton( onPressed: () { Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) => AppointmentRequest()));
+                                  }, child: const Text('Request Appointment', textAlign: TextAlign.left, style: TextStyle(
                                     color: Color.fromRGBO(255, 255, 255, 1),
                                     fontFamily: 'Inter',
                                     fontSize: 15,
                                     letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
                                     fontWeight: FontWeight.normal,
                                     height: 1
-                                ),)
-                            ),
+                                ),),
+                            ),)
                           ]
                       )
                   )
@@ -136,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                       child: Stack(
                           children: <Widget>[
-                            Positioned(
+                            const Positioned(
                                 top: 17.90297508239746,
                                 left: 27.779766082763672,
                                 child: Text('Sign in', textAlign: TextAlign.left, style: TextStyle(
@@ -154,20 +158,20 @@ class _MyHomePageState extends State<MyHomePage> {
                                     width: 107.15044403076172,
                                     height: 52.5152587890625,
                                     decoration: BoxDecoration(
-                                      borderRadius : BorderRadius.only(
+                                      borderRadius : const BorderRadius.only(
                                         topLeft: Radius.circular(15),
                                         topRight: Radius.circular(15),
                                         bottomLeft: Radius.circular(15),
                                         bottomRight: Radius.circular(15),
                                       ),
-                                      boxShadow : [BoxShadow(
+                                      boxShadow : [const BoxShadow(
                                           color: Color.fromRGBO(0, 0, 0, 0.25),
                                           offset: Offset(0,4),
                                           blurRadius: 4
                                       )],
-                                      color : Color.fromRGBO(217, 217, 217, 0.10000000149011612),
+                                      color : const Color.fromRGBO(217, 217, 217, 0.10000000149011612),
                                       border : Border.all(
-                                        color: Color.fromRGBO(49, 208, 23, 1),
+                                        color: const Color.fromRGBO(49, 208, 23, 1),
                                         width: 3,
                                       ),
                                     )
@@ -185,7 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                       child: Stack(
                           children: <Widget>[
-                            Positioned(
+                            const Positioned(
                                 top: 18.178436279296875,
                                 left: 23.216018676757812,
                                 child: Text('Sign up', textAlign: TextAlign.left, style: TextStyle(
@@ -203,20 +207,20 @@ class _MyHomePageState extends State<MyHomePage> {
                                     width: 97.47038269042969,
                                     height: 52.5152587890625,
                                     decoration: BoxDecoration(
-                                      borderRadius : BorderRadius.only(
+                                      borderRadius : const BorderRadius.only(
                                         topLeft: Radius.circular(15),
                                         topRight: Radius.circular(15),
                                         bottomLeft: Radius.circular(15),
                                         bottomRight: Radius.circular(15),
                                       ),
-                                      boxShadow : [BoxShadow(
+                                      boxShadow : [const BoxShadow(
                                           color: Color.fromRGBO(0, 0, 0, 0.25),
                                           offset: Offset(0,4),
                                           blurRadius: 4
                                       )],
-                                      color : Color.fromRGBO(217, 217, 217, 0.10000000149011612),
+                                      color : const Color.fromRGBO(217, 217, 217, 0.10000000149011612),
                                       border : Border.all(
-                                        color: Color.fromRGBO(50, 208, 24, 1),
+                                        color: const Color.fromRGBO(50, 208, 24, 1),
                                         width: 3,
                                       ),
                                     )
@@ -241,15 +245,15 @@ class _MyHomePageState extends State<MyHomePage> {
                             width: 1232,
                             height: 810,
                             decoration: BoxDecoration(
-                              borderRadius : BorderRadius.only(
+                              borderRadius : const BorderRadius.only(
                                 topLeft: Radius.circular(50),
                                 topRight: Radius.circular(50),
                                 bottomLeft: Radius.circular(50),
                                 bottomRight: Radius.circular(500),
                               ),
-                              color : Color.fromRGBO(217, 217, 217, 1),
+                              color : const Color.fromRGBO(217, 217, 217, 1),
                               border : Border.all(
-                                color: Color.fromRGBO(0, 0, 0, 1),
+                                color: const Color.fromRGBO(0, 0, 0, 1),
                                 width: 1,
                               ),
                             )
@@ -259,7 +263,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     left: 159.9256591796875,
                     child: Transform.rotate(
                         angle: -0.08137150825133167 * (3.742 / 180),
-                        child: Text('Move your body,'
+                        child: const Text('Move your body,'
                             'Live your Life', textAlign: TextAlign.left, style: TextStyle(
                             color: Color.fromRGBO(50, 208, 24, 1),
                         fontFamily: 'Inter',
@@ -274,7 +278,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   left: 160.03439331054688,
                   child: Transform.rotate(
                     angle: -0.08137150825133167 * (3.742 / 180),
-                    child: Text('All types of physical Therapy tbc', textAlign: TextAlign.left, style: TextStyle(
+                    child: const Text('All types of physical Therapy tbc', textAlign: TextAlign.left, style: TextStyle(
                         color: Color.fromRGBO(50, 208, 24, 1),
                         fontFamily: 'Inter',
                         fontSize: 20,
@@ -287,7 +291,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ]
         )
     )
-    ),Positioned(
+    ),const Positioned(
     top: 59,
     left: 138,
     child: Text('Specialzation center'
@@ -300,7 +304,7 @@ class _MyHomePageState extends State<MyHomePage> {
     height: 1
     ),)
     ),
-        Positioned(
+        const Positioned(
             top: 177.9234619140625+1024,
             left: 95.675537109375,
             child: Text('Location', textAlign: TextAlign.left, style: TextStyle(
@@ -311,7 +315,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 fontWeight: FontWeight.normal,
                 height: 1
             ),)
-        ),Positioned(
+        ),const Positioned(
           top: 352.9234619140625+1024,
           left: 95.675537109375,
           child: Text('Our only branch is at Al-Zarqa city  \n'
@@ -328,7 +332,7 @@ class _MyHomePageState extends State<MyHomePage> {
           height: 1
       ),)
     ),
-        Positioned(
+        const Positioned(
             top: 445+2048,
             left: 235,
             child: Text('stroke \n'
@@ -349,7 +353,7 @@ class _MyHomePageState extends State<MyHomePage> {
             fontWeight: FontWeight.normal,
             height: 1
         ),)
-    ),Positioned(
+    ),const Positioned(
     top: 302+2048,
     left: 970,
     child: Text('Kids', textAlign: TextAlign.left, style: TextStyle(
@@ -360,7 +364,7 @@ class _MyHomePageState extends State<MyHomePage> {
     fontWeight: FontWeight.normal,
     height: 1
     ),)
-    ),Positioned(
+    ),const Positioned(
     top: 302+2048,
     left: 592,
     child: Text('Adult'
@@ -372,7 +376,7 @@ class _MyHomePageState extends State<MyHomePage> {
     fontWeight: FontWeight.normal,
     height: 1
     ),)
-    ),Positioned(
+    ),const Positioned(
     top: 302+2048,
     left: 272,
     child: Text('Elder', textAlign: TextAlign.left, style: TextStyle(
@@ -383,7 +387,7 @@ class _MyHomePageState extends State<MyHomePage> {
     fontWeight: FontWeight.normal,
     height: 1
     ),)
-    ),Positioned(
+    ),const Positioned(
     top: 93+2048,
     left: 114,
     child: Text('We provide several Physical Therapy Treatments \n'
@@ -396,7 +400,7 @@ class _MyHomePageState extends State<MyHomePage> {
     height: 1
     ),)
     ),
-        Positioned(
+        const Positioned(
             top: 77+3072,
             left: 100,
             child: Text('Contact Details: +962 77 951 4549 \n'
@@ -514,276 +518,12 @@ class _MyHomePageState extends State<MyHomePage> {
     )
     )
     ),
-
-                        Positioned(
-                            top: 66.83784484863281+4096,
-                            left: 70.5975112915039,
-                            child: Container(
-                                width: 1322,
-                                height: 709,
-                                decoration: BoxDecoration(
-                                  borderRadius : BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    topRight: Radius.circular(20),
-                                    bottomLeft: Radius.circular(150),
-                                    bottomRight: Radius.circular(500),
-                                  ),
-                                  color : Color.fromRGBO(119, 35, 35, 1),
-                                )
-                            )
-                        ),Positioned(
-                            top: 313.4561767578125+4096,
-                            left: 1000.4446411132812,
-                            child: Transform.rotate(
-                              angle: 0.08132994503872674 * (3.742 / 180),
-                              child: Text('Time of Session', textAlign: TextAlign.left, style: TextStyle(
-                                  color: Color.fromRGBO(255, 255, 255, 1),
-                                  fontFamily: 'Inter',
-                                  fontSize: 25,
-                                  letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
-                                  fontWeight: FontWeight.normal,
-                                  height: 1
-                              ),),
-                            )
-                        ),Positioned(
-                            top: 189.45631408691406+4096,
-                            left: 1000.2686157226562,
-                            child: Transform.rotate(
-                              angle: 0.08132994503872674 * (3.742 / 180),
-                              child: Text('Date of Session', textAlign: TextAlign.left, style: TextStyle(
-                                  color: Color.fromRGBO(255, 255, 255, 1),
-                                  fontFamily: 'Inter',
-                                  fontSize: 25,
-                                  letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
-                                  fontWeight: FontWeight.normal,
-                                  height: 1
-                              ),),
-                            )
-                        ),Positioned(
-                            top: 438.05364990234375+4096,
-                            left: 579.62109375,
-                            child: Transform.rotate(
-                              angle: 0.08132994503872674 * (3.742 / 180),
-                              child: Text('Phone', textAlign: TextAlign.left, style: TextStyle(
-                                  color: Color.fromRGBO(255, 255, 255, 1),
-                                  fontFamily: 'Inter',
-                                  fontSize: 25,
-                                  letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
-                                  fontWeight: FontWeight.normal,
-                                  height: 1
-                              ),),
-                            )
-                        ),Positioned(
-                            top: 366.48809814453125+4096,
-                            left: 273.51922607421875,
-                            child: Transform.rotate(
-                              angle: 0.08132994503872674 * (3.742 / 180),
-                              child: Text('E-mal Address', textAlign: TextAlign.left, style: TextStyle(
-                                  color: Color.fromRGBO(255, 255, 255, 1),
-                                  fontFamily: 'Inter',
-                                  fontSize: 25,
-                                  letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
-                                  fontWeight: FontWeight.normal,
-                                  height: 1
-                              ),),
-                            )
-                        ),Positioned(
-                            top: 468.0692443847656+4096,
-                            left: 568.6636962890625,
-                            child: Transform.rotate(
-                              angle: 0.08132994503872674 * (3.742 / 180),
-                              child: Container(
-                                  width: 285,
-                                  height: 44,
-                                  decoration: BoxDecoration(
-                                    color : Color.fromRGBO(217, 217, 217, 1),
-                                  )
-                              ),
-                            )
-                        ),Positioned(
-                            top: 399.50225830078125+4096,
-                            left: 263.5660705566406,
-                            child: Transform.rotate(
-                              angle: 0.08132994503872674 * (3.742 / 180),
-                              child: Container(
-                                  width: 285,
-                                  height: 44,
-                                  decoration: BoxDecoration(
-                                    color : Color.fromRGBO(217, 217, 217, 1),
-                                  )
-                              ),
-                            )
-                        ),Positioned(
-                            top: 344.0693664550781+4096,
-                            left: 568.4876708984375,
-                            child: Transform.rotate(
-                              angle: 0.08132994503872674 * (3.742 / 180),
-                              child: Container(
-                                  width: 285,
-                                  height: 44,
-                                  decoration: BoxDecoration(
-                                    color : Color.fromRGBO(217, 217, 217, 1),
-                                  )
-                              ),
-                            )
-                        ),Positioned(
-                            top: 161.5024871826172+4096,
-                            left: 263.2282409667969,
-                            child: Transform.rotate(
-                              angle: 0.08132994503872674 * (3.742 / 180),
-                              child: Container(
-                                  width: 285,
-                                  height: 44,
-                                  decoration: BoxDecoration(
-                                    color : Color.fromRGBO(217, 217, 217, 1),
-                                  )
-                              ),
-                            )
-                        ),Positioned(
-                            top: 280.50238037109375+4096,
-                            left: 263.39715576171875,
-                            child: Transform.rotate(
-                              angle: 0.08132994503872674 * (3.742 / 180),
-                              child: Container(
-                                  width: 285,
-                                  height: 44,
-                                  decoration: BoxDecoration(
-                                    color : Color.fromRGBO(217, 217, 217, 1),
-                                  )
-                              ),
-                            )
-                        ),Positioned(
-                            top: 220.06948852539062+4096,
-                            left: 568.3116455078125,
-                            child: Transform.rotate(
-                              angle: 0.08132994503872674 * (3.742 / 180),
-                              child: Container(
-                                  width: 285,
-                                  height: 44,
-                                  decoration: BoxDecoration(
-                                    color : Color.fromRGBO(217, 217, 217, 1),
-                                  )
-                              ),
-                            )
-                        ),Positioned(
-                            top: 219.46905517578125+4096,
-                            left: 991.3112182617188,
-                            child: Transform.rotate(
-                              angle: 0.08132994503872674 * (3.742 / 180),
-                              child: Container(
-                                  width: 285,
-                                  height: 44,
-                                  decoration: BoxDecoration(
-                                    color : Color.fromRGBO(217, 217, 217, 1),
-                                  )
-                              ),
-                            )
-                        ),Positioned(
-                            top: 343.4703674316406+4096,
-                            left: 990.4872436523438,
-                            child: Transform.rotate(
-                              angle: 0.08132994503872674 * (3.742 / 180),
-                              child: Container(
-                                  width: 285,
-                                  height: 44,
-                                  decoration: BoxDecoration(
-                                    color : Color.fromRGBO(217, 217, 217, 1),
-                                  )
-                              ),
-                            )
-                        ),Positioned(
-                            top: 314.05377197265625+4096,
-                            left: 579.445068359375,
-                            child: Transform.rotate(
-                              angle: 0.08132994503872674 * (3.742 / 180),
-                              child: Text('Gender', textAlign: TextAlign.left, style: TextStyle(
-                                  color: Color.fromRGBO(255, 255, 255, 1),
-                                  fontFamily: 'Inter',
-                                  fontSize: 25,
-                                  letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
-                                  fontWeight: FontWeight.normal,
-                                  height: 1
-                              ),),
-                            )
-                        ),Positioned(
-                            top: 461.4560546875+4096,
-                            left: 1000.6547241210938,
-                            child: Transform.rotate(
-                              angle: 0.08132994503872674 * (3.742 / 180),
-                              child: Container(
-                                  width: 186,
-                                  height: 72,
-                                  decoration: BoxDecoration(
-                                    borderRadius : BorderRadius.only(
-                                      topLeft: Radius.circular(30),
-                                      topRight: Radius.circular(30),
-                                      bottomLeft: Radius.circular(30),
-                                      bottomRight: Radius.circular(30),
-                                    ),
-                                    color : Color.fromRGBO(207, 199, 8, 1),
-                                  )
-                              ),
-                            )
-                        ),Positioned(
-                            top: 482.3822021484375+4096,
-                            left: 1052.6845703125,
-                            child: Transform.rotate(
-                              angle: 0.08132994503872674 * (3.742 / 180),
-                              child: Text('Submit', textAlign: TextAlign.left, style: TextStyle(
-                                  color: Color.fromRGBO(0, 0, 0, 1),
-                                  fontFamily: 'Inter',
-                                  fontSize: 25,
-                                  letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
-                                  fontWeight: FontWeight.normal,
-                                  height: 1
-                              ),),
-                            )
-                        ),Positioned(
-                            top: 190.11521911621094+4096,
-                            left: 579.7666015625,
-                            child: Transform.rotate(
-                              angle: 0.08132994503872674 * (3.742 / 180),
-                              child: Text('Surname', textAlign: TextAlign.left, style: TextStyle(
-                                  color: Color.fromRGBO(255, 255, 255, 1),
-                                  fontFamily: 'Inter',
-                                  fontSize: 25,
-                                  letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
-                                  fontWeight: FontWeight.normal,
-                                  height: 1
-                              ),),
-                            )
-                        ),Positioned(
-                            top: 247.5495147705078+4096,
-                            left: 273.8478088378906,
-                            child: Transform.rotate(
-                              angle: 0.08132994503872674 * (3.742 / 180),
-                              child: Text('Age', textAlign: TextAlign.left, style: TextStyle(
-                                  color: Color.fromRGBO(255, 255, 255, 1),
-                                  fontFamily: 'Inter',
-                                  fontSize: 25,
-                                  letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
-                                  fontWeight: FontWeight.normal,
-                                  height: 1
-                              ),),
-                            )
-                        ),Positioned(
-                            top: 131.5496368408203+4096,
-                            left: 273.68316650390625,
-                            child: Transform.rotate(
-                              angle: 0.08132994503872674 * (3.742 / 180),
-                              child: Text('Name', textAlign: TextAlign.left, style: TextStyle(
-                                  color: Color.fromRGBO(255, 255, 255, 1),
-                                  fontFamily: 'Inter',
-                                  fontSize: 25,
-                                  letterSpacing: 0 /*percentages not used in flutter. defaulting to zero*/,
-                                  fontWeight: FontWeight.normal,
-                                  height: 1
-                              ),),
-                            )
-                        ),
     ]
     )
     ),
     );
   }
 }
+
+
+
