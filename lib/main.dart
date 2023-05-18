@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:graduation_project/admin.dart';
 
 import 'AppointmentRequest.dart';
 void main() {
@@ -50,18 +51,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 top: 1.009946584701538,
                                 left: 340.1654052734375,
                                 child: TextButton( onPressed: () { Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) => AppointmentRequest()));
+                                    MaterialPageRoute(builder: (context) =>  AppointmentRequest()));
                                   }, child: const Text('Request Appointment', textAlign: TextAlign.left, style: TextStyle(
                                     color: Color.fromRGBO(255, 255, 255, 1),
                                     fontFamily: 'Inter',
@@ -164,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         bottomLeft: Radius.circular(15),
                                         bottomRight: Radius.circular(15),
                                       ),
-                                      boxShadow : [const BoxShadow(
+                                      boxShadow : const [BoxShadow(
                                           color: Color.fromRGBO(0, 0, 0, 0.25),
                                           offset: Offset(0,4),
                                           blurRadius: 4
@@ -213,7 +202,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         bottomLeft: Radius.circular(15),
                                         bottomRight: Radius.circular(15),
                                       ),
-                                      boxShadow : [const BoxShadow(
+                                      boxShadow : const [BoxShadow(
                                           color: Color.fromRGBO(0, 0, 0, 0.25),
                                           offset: Offset(0,4),
                                           blurRadius: 4
@@ -417,107 +406,45 @@ class _MyHomePageState extends State<MyHomePage> {
     top: 77+3072,
     left: 620,
     child: Container(
-    width: 72.27827453613281,
-    height: 72.27827453613281,
-
-    child: Stack(
-    children: <Widget>[
-    Positioned(
-    top: 0,
-    left: 0,
-    child: SvgPicture.asset(
-    'assets/icons/v2.svg'
+        width: 72.27827453613281,
+        height: 72.6230239868164,
+        child: Image.asset(
+    'icons/instagram.png'
+    )
     )
     ),
-    ]
-    )
-    )
-    ),Positioned(
+          Positioned(
     top: 77+3072,
     left: 866,
     child: Container(
-    width: 72.27827453613281,
-    height: 72.398681640625,
-
-    child: Stack(
-    children: <Widget>[
-    Positioned(
-    top: 0+3072,
-    left: 0,
-    child: SvgPicture.asset(
-    'assets/v1.svg'
-    )
-    ),Positioned(
-    top: 24.061967849731445+3072,
-    left: 24.057987213134766,
-    child: SvgPicture.asset(
-    'assets/v4.svg'
+        width: 72.27827453613281,
+        height: 72.6230239868164,
+    child: Image.asset("icons/facebook.png")
     )
     ),
-    ]
-    )
-    )
-    ),Positioned(
+
+              Positioned(
     top: 194+3072,
     left: 100,
     child: Container(
     width: 72.27827453613281,
     height: 72.6230239868164,
-
-    child: Stack(
-    children: <Widget>[
-    Positioned(
-    top: 0,
-    left: 0,
-    child: SvgPicture.asset(
-    'assets/images/v3.svg',
-    semanticsLabel: 'vector'
+    child: Image.asset(
+    'icons/whatsapp.png',
     )
     ),
-    ]
-    )
-    )
     ),Positioned(
     top: 84+3072,
     left: 743,
-    child: Container(
-    width: 72.27827453613281,
-    height: 58.706790924072266,
+    child: SizedBox(
+        width: 72.27827453613281,
+        height: 72.6230239868164,
+    child: Image.asset(
+    'icons/youtube.png',
+    )
+    )
+    ),
 
-    child: Stack(
-    children: <Widget>[
-    Positioned(
-    top: 0,
-    left: 0,
-    child: SvgPicture.asset(
-    'assets/images/v5.svg',
-    semanticsLabel: 'vector'
-    )
-    ),
-    ]
-    )
-    )
-    ),Positioned(
-    top: 84+3072,
-    left: 989,
-    child: Container(
-    width: 72.27827453613281,
-    height: 50.602413177490234,
-
-    child: Stack(
-    children: <Widget>[
-    Positioned(
-    top: 0,
-    left: 0,
-    child: SvgPicture.asset(
-    'assets/images/v6.svg',
-    semanticsLabel: 'vector'
-    )
-    ),
-    ]
-    )
-    )
-    ),
     ]
     )
     ),

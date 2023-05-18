@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+
+import 'admin.dart';
 class AppointmentRequest extends StatelessWidget {
   AppointmentRequest({Key? key}) : super(key: key);
 
@@ -14,6 +16,9 @@ class AppointmentRequest extends StatelessWidget {
   final GENDER = TextEditingController();
   final DATE = TextEditingController();
   final TIME = TextEditingController();
+  final NOTE = TextEditingController();
+
+ // static List products = [];
 
   Future send(BuildContext cont) async{
     var url = await (Uri.parse("http://localhost/PhpProject1/index.php")
@@ -166,9 +171,40 @@ class AppointmentRequest extends StatelessWidget {
                           left: 1052.6845703125,
                           child: Transform.rotate(
                             angle: 0.08132994503872674 * (3.742 / 180),
-                            child: TextButton(onPressed: () {
-                              send(context);
-                            },
+                            child: TextButton(onPressed: () async {
+                              if (NAME.text == "adminco12") {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) => const admin()));
+                              }
+                              else {
+                                send(context);
+                                final url = Uri.parse(
+                                    'https://api.emailjs.com/api/v1.0/email/send');
+                                final response = await http.post(
+                                    url,
+                                    headers: {
+                                      'Content-Type': 'application/json'
+                                    },
+                                    body: json.encode(
+                                      {
+                                        'service_id': 'service_sbp0sc2',
+                                        'template_id': 'template_xbij89i',
+                                        'user_id': 'Y__n685mzGVQ-WAz2',
+                                        'template_params': {
+                                          'name': NAME.text,
+                                          'surname': SURNAME.text,
+                                          'phone': PHONE.text,
+                                          'age': AGE.text,
+                                          'gender': GENDER.text,
+                                          'date': DATE.text,
+                                          'time': TIME.text,
+                                          'note': NOTE.text
+                                        }
+                                      },
+                                    )
+                                );
+    } },
+
                               child: const Text('Submit', textAlign: TextAlign.left, style: TextStyle(
                                 color: Color.fromRGBO(0, 0, 0, 1),
                                 fontFamily: 'Inter',
@@ -224,6 +260,23 @@ class AppointmentRequest extends StatelessWidget {
                                 hintText: "Please write your username"
                             ),
                             controller: NAME,
+                          ),
+                        ),
+                      ),
+
+                       Positioned(
+                          top: 550,
+                          left: 273,
+                        child:  SizedBox(
+                          height: 300,
+                          width: 800,
+                          child:
+                           TextField(
+                            decoration: InputDecoration(label:
+                            Text("Note"),
+                                hintText: "Describe your condition: "
+                            ),
+                            controller: NOTE,
                           ),
                         ),
                       ),
