@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:xen_popup_card/xen_card.dart';
 
 import 'AppointmentRequest.dart';
 void main() {
@@ -35,7 +36,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
+final feedback = TextEditingController();
+final name = TextEditingController();
   final Uri _url = Uri.parse('https://flutter.dev');
 
   Future<void> _launchUrl() async {
@@ -44,9 +46,49 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
 
+
+
+    Future open() => showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+      title: TextField(
+        decoration:  InputDecoration(
+          label: Text("Name"),
+          hintText: "Please write your name",
+        ),
+        controller: name,
+      ),
+      content:TextField(
+        decoration: const InputDecoration(
+          label: Text("Comment"),
+          hintText: "Please write your name",
+        ),
+        controller: feedback,
+        maxLines: 5,
+      ),
+      actions: [
+        ElevatedButton(onPressed: () {
+Navigator.pop(context);
+        },
+            child: const Text("Submit"))
+      ],
+    ),);
+  /*  XenCardGutter gutter =  XenCardGutter(
+
+      child: Scaffold(
+        body: Column(
+          children: [
+
+
+
+          ],
+        ),
+      ),
+    );*/
     return  SingleChildScrollView(
 
       child: Container(
@@ -89,8 +131,8 @@ class _MyHomePageState extends State<MyHomePage> {
                              Positioned(
                                top: 59,
                                left: 800,
-                               child: TextButton(onPressed: () { Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) =>  AppointmentRequest()));
+                               child: TextButton(onPressed: () {
+                                open();
                                 }, child:const Text('Provide Feedback', textAlign: TextAlign.left, style: TextStyle(
                                     color: Color.fromRGBO(255, 255, 255, 1),
                                     fontFamily: 'Inter',

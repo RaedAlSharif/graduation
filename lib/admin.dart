@@ -20,9 +20,6 @@ class _adminState extends State<admin> {
         products = json.decode(response.body);
       });
     }
-   // var body = json.decode(response.body);
-  //  products = body;
-   //newp = products;
     print(products);
     print("above me");
     return products;

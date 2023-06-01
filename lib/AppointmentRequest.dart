@@ -15,6 +15,27 @@ class AppointmentRequest extends StatefulWidget {
 
 class _AppointmentRequestState extends State<AppointmentRequest> {
 
+  List products = [];
+
+  bool reserved = false;
+  getData() async {
+    var url = await (Uri.parse("http://localhost/PhpProject1/getData.php"));
+    var response = await http.get(url);
+    if ( response.statusCode == 200){
+      setState(() {
+        products = json.decode(response.body);
+      });
+    }
+    print(products);
+    print("above me");
+    return products;
+  }
+  @override
+  void initState() {
+    super.initState();
+    getData();
+    //newp = getData();
+  }
   final NAME = TextEditingController();
   final SURNAME = TextEditingController();
   final AGE = TextEditingController();
@@ -92,7 +113,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                   style: TextStyle(
                     fontFamily: 'Roboto',
                     fontSize: 48,
-                    color: Colors.white,
+                    color: Colors.red,
                     fontWeight: FontWeight.w700,
                   ),
                   textAlign: TextAlign.center,
@@ -221,36 +242,49 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
 
                         String email = EMAIL.text;
                       final bool e = EmailValidator.validate(email);
-                      if (e){
-                        final String time = selectedTime != null ? selectedTime.toString() : '';
-                       
-                        print(time.replaceAll("TimeOfDay()", ""));
+                      if (e) {
+                        if ( (selectedTime != null ? selectedTime!.toString().substring(13, 15) : '') == "00" ||
+                            (selectedTime != null ? selectedTime!.toString().substring(13, 15) : '') == "30"){
+                          if (!is_reserved()) {
+                            Success();
+                            send(context);
 
-                         send(context);
-
-                        final url = Uri.parse(
-                            'https://api.emailjs.com/api/v1.0/email/send');
-                        final response = await http.post(
-                          url,
-                          headers: {'Content-Type': 'application/json'},
-                          body: json.encode(
-                            {
-                              'service_id': 'service_sbp0sc2',
-                              'template_id': 'template_xbij89i',
-                              'user_id': 'DR9oYPKTWE1s9l-w9',
-                              'template_params': {
-                                'name': NAME.text,
-                                'surname': SURNAME.text,
-                                'phone': PHONE.text,
-                                'age': AGE.text,
-                                'gender': GENDER.text,
-                                'date': selectedDate != null ? selectedDate!.toString().substring(0, 10) : '',
-                                'time': selectedTime != null ? selectedTime!.toString().substring(10,15) : '',
-                                'note': NOTE.text,
-                              },
-                            },
-                          ),
-                        );
+                            final url = Uri.parse(
+                                'https://api.emailjs.com/api/v1.0/email/send');
+                            final response = await http.post(
+                              url,
+                              headers: {'Content-Type': 'application/json'},
+                              body: json.encode(
+                                {
+                                  'service_id': 'service_sbp0sc2',
+                                  'template_id': 'template_xbij89i',
+                                  'user_id': 'DR9oYPKTWE1s9l-w9',
+                                  'template_params': {
+                                    'name': NAME.text,
+                                    'surname': SURNAME.text,
+                                    'phone': PHONE.text,
+                                    'age': AGE.text,
+                                    'gender': GENDER.text,
+                                    'date': selectedDate != null ? selectedDate!
+                                        .toString().substring(0, 10) : '',
+                                    'time': selectedTime != null ? selectedTime!
+                                        .toString().substring(10, 15) : '',
+                                    'note': NOTE.text,
+                                  },
+                                },
+                              ),
+                            );
+                          } else {
+                            setState(() {
+                              str = "There is already an appointment at this time please choose another Date or Time";
+                            });
+                          }
+                        }
+                        else{
+                          setState(() {
+                            str = "Time in minutes must be in (00) or (30) states. (12:00) or (12:30)";
+                          });
+                        }
                       }
                       else{
                         setState(() {
@@ -286,4 +320,35 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
       ),
     );
   }
+  bool is_reserved(){
+    for (int i = 0; i < products.length; i++) {
+
+      print(products[i]['time'].toString().substring(0,5));
+      print( (selectedTime != null ? selectedTime!.toString()
+          .substring(10, 15) : ''));
+      if (products[i]['time'].substring(0,5) ==
+                              (selectedTime != null ? selectedTime!.toString()
+                                  .substring(10, 15) : '') &&
+      products[i]['date'] == (selectedDate != null ? selectedDate
+          .toString().substring(0,10) : '')) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+
+
+  Future Success() => showDialog(
+    context: context,
+    builder: (context) => const AlertDialog(
+      backgroundColor: Colors.black45,
+      title: Text("Appointment requested successfully",
+        style: TextStyle(color: Colors.yellowAccent)
+        ),
+      content:Text("You will be contacted shortly about the status of your request!" + "\n"
+          "Thank you for choosing Specialization zone", style: TextStyle(color: Colors.white)),
+
+      ),
+    );
 }

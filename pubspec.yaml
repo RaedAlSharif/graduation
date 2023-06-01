@@ -33,6 +33,7 @@ dependencies:
   flutter_svg: ^0.22.0
   url_launcher: ^6.1.11
   email_validator: ^2.1.17
+  xen_popup_card: ^0.0.1
   flutter:
     sdk: flutter
 
