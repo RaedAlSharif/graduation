@@ -3,17 +3,23 @@ import 'dart:convert';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:graduation_project/responsive.dart';
 import 'package:http/http.dart' as http;
 
 import 'admin.dart';
 class AppointmentRequest extends StatefulWidget {
-  AppointmentRequest({Key? key}) : super(key: key);
+  List products2;
+  int unit;
+  AppointmentRequest({Key? key , required this.products2 , required this.unit}) : super(key: key);
 
   @override
-  _AppointmentRequestState createState() => _AppointmentRequestState();
+  _AppointmentRequestState createState() => _AppointmentRequestState(products2 , unit);
 }
 
 class _AppointmentRequestState extends State<AppointmentRequest> {
+  List products2;
+  int unit;
+  _AppointmentRequestState(this.products2 , this.unit);
 
   List products = [];
 
@@ -30,10 +36,24 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
     print("above me");
     return products;
   }
+  List products3 = [];
+  getData_reserved() async {
+    var url = await (Uri.parse("http://localhost/PhpProject1/get_reserved.php"));
+    var response = await http.get(url);
+    if ( response.statusCode == 200){
+      setState(() {
+        products3 = json.decode(response.body);
+      });
+    }
+    print(products3);
+    print("above me");
+    return products3;
+  }
   @override
   void initState() {
     super.initState();
     getData();
+    getData_reserved();
     //newp = getData();
   }
   final NAME = TextEditingController();
@@ -51,21 +71,25 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
 
-  Future send(BuildContext cont) async{
+  String id_patient = "";
+  String id_reserved = "";
 
+  Future send(BuildContext cont) async{
+String age = products2[unit]["age"].toString();
     var url = await (Uri.parse("http://localhost/PhpProject1/index.php")
     );
     var response = await http.post(url , body: {
-    "NAME" : NAME.text,
-    "SURNAME" : SURNAME.text,
-    "AGE" : AGE.text,
-   "EMAIL" : EMAIL.text,
-    "PHONE" : PHONE.text,
-    "GENDER" : GENDER.text,
+    "NAME" : products2[unit]["name"],
+    "SURNAME" : products2[unit]["surname"],
+    "AGE" : age,
+   "EMAIL" : products2[unit]["email"],
+    "PHONE" : products2[unit]["phone"],
+    "GENDER" : products2[unit]["gender"],
   /*  "DATE" : DATE.text,
    "TIME" : TIME.text*/
       "DATE": selectedDate != null ? selectedDate.toString() : '',
       "TIME": selectedTime != null ? selectedTime.toString().substring(10,15) : '',
+      "IDDOCTORS": products2[unit]["idDoctors"].toString()
     });
     var data = json.decode(response.body);
     print(data);
@@ -100,6 +124,39 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
     //print(selectedTime != null ? selectedTime.toString().substring(10 , 15) : '');
     return MaterialApp(
       home: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 110,
+          backgroundColor: Colors.black,
+          title: Container(
+            width: double.infinity,
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(right: 10),
+                  height: 100,
+                  width: 100,
+                  child: Image.asset("icons/Logo-modified.png"),
+                ),
+                const Text(
+                  'Specialization zone',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 40,
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+              ],
+            ),
+          ),
+          bottom: ResponsiveWidget.isSmallScreen(context)
+              ?  PreferredSize(
+            preferredSize: Size.fromHeight(kToolbarHeight),
+            child: Column(
+              children: [],
+            ),
+          )
+              : PreferredSize(child: SizedBox(), preferredSize: Size(0, 0)),
+        ),
         body: SingleChildScrollView(
           child: Container(
             width: double.infinity,
@@ -113,12 +170,12 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                   style: TextStyle(
                     fontFamily: 'Roboto',
                     fontSize: 48,
-                    color: Colors.red,
+                    color: Colors.indigo,
                     fontWeight: FontWeight.w700,
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 40.0),
+                /*SizedBox(height: 40.0),
                 SizedBox(
                   height: 50,
                   width: 270,
@@ -192,12 +249,15 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                     ),
                     controller: GENDER,
                   ),
-                ),
+                ),*/
+                const Text("Working days (Saturday-Thursday) \n Working Time (08:00 AM - 04:30 PM)"),
                 SizedBox(height: 20.0),
                 SizedBox(
                   height: 50,
                   width: 270,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green, foregroundColor: Colors.white),
                     onPressed: () => _selectDate(context),
                     child: Text(selectedDate != null
                         ? 'Date: ${selectedDate!.toString().substring(0, 10)}'
@@ -209,6 +269,8 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                   height: 50,
                   width: 270,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green, foregroundColor: Colors.white),
                     onPressed: () => _selectTime(context),
                     child: Text(selectedTime != null
                         ? 'Time: ${selectedTime!.format(context)}'
@@ -229,54 +291,65 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                 ),
                 SizedBox(height: 20.0),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green, foregroundColor: Colors.white),
                   onPressed: () async {
-                    if (NAME.text == "adminco12") {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => admin()),
-                      );
-                    } else {
+                   /* else {
 
                       if (NAME.text.isNotEmpty || SURNAME.text.isNotEmpty || PHONE.text.isNotEmpty ||
                           EMAIL.text.isNotEmpty || GENDER.text.isNotEmpty ||  AGE.text.isNotEmpty){
 
                         String email = EMAIL.text;
                       final bool e = EmailValidator.validate(email);
-                      if (e) {
-                        if ( (selectedTime != null ? selectedTime!.toString().substring(13, 15) : '') == "00" ||
+                      if (e) {*/
+                        if ((selectedTime != null ? selectedTime!.toString().substring(13, 15) : '') == "00" ||
                             (selectedTime != null ? selectedTime!.toString().substring(13, 15) : '') == "30"){
-                          if (!is_reserved()) {
-                            Success();
-                            send(context);
+                          if(is_reserved_Schedule()) {
+                              if (!is_reserved()) {
+                                Success();
+                                send(context);
 
-                            final url = Uri.parse(
-                                'https://api.emailjs.com/api/v1.0/email/send');
-                            final response = await http.post(
-                              url,
-                              headers: {'Content-Type': 'application/json'},
-                              body: json.encode(
-                                {
-                                  'service_id': 'service_sbp0sc2',
-                                  'template_id': 'template_xbij89i',
-                                  'user_id': 'DR9oYPKTWE1s9l-w9',
-                                  'template_params': {
-                                    'name': NAME.text,
-                                    'surname': SURNAME.text,
-                                    'phone': PHONE.text,
-                                    'age': AGE.text,
-                                    'gender': GENDER.text,
-                                    'date': selectedDate != null ? selectedDate!
-                                        .toString().substring(0, 10) : '',
-                                    'time': selectedTime != null ? selectedTime!
-                                        .toString().substring(10, 15) : '',
-                                    'note': NOTE.text,
-                                  },
-                                },
-                              ),
-                            );
-                          } else {
+                                final url = Uri.parse(
+                                    'https://api.emailjs.com/api/v1.0/email/send');
+                                final response = await http.post(
+                                  url,
+                                  headers: {'Content-Type': 'application/json'},
+                                  body: json.encode(
+                                    {
+                                      'service_id': 'service_sbp0sc2',
+                                      'template_id': 'template_xbij89i',
+                                      'user_id': 'DR9oYPKTWE1s9l-w9',
+                                      'template_params': {
+                                        'name': products2[unit]["name"],
+                                        'surname': products2[unit]["surname"],
+                                        'phone': products2[unit]["phone"],
+                                        'age': products2[unit]["age"],
+                                        'gender': products2[unit]["gender"],
+                                        'date': selectedDate != null
+                                            ? selectedDate!
+                                            .toString().substring(0, 10)
+                                            : '',
+                                        'time': selectedTime != null
+                                            ? selectedTime!
+                                            .toString().substring(10, 15)
+                                            : '',
+                                        'note': NOTE.text,
+                                      },
+                                    },
+                                  ),
+                                );
+                              }
+                             else {
+                              setState(() {
+                                str =
+                                "There is already an appointment at this time please choose another Date or Time";
+                              });
+                            }
+                          }
+                          else{
                             setState(() {
-                              str = "There is already an appointment at this time please choose another Date or Time";
+                              str =
+                              "The Doctor is not available at this time and date";
                             });
                           }
                         }
@@ -285,8 +358,8 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                             str = "Time in minutes must be in (00) or (30) states. (12:00) or (12:30)";
                           });
                         }
-                      }
-                      else{
+                      },
+                     /*/ else{
                         setState(() {
                           str = "Invalid Email-Address";
                         });
@@ -298,7 +371,7 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                         });
                       }
                     }
-                  },
+                  },*/
                   child: const Text(
                     'Submit',
                     textAlign: TextAlign.left,
@@ -331,10 +404,32 @@ class _AppointmentRequestState extends State<AppointmentRequest> {
                                   .substring(10, 15) : '') &&
       products[i]['date'] == (selectedDate != null ? selectedDate
           .toString().substring(0,10) : '')) {
-        return true;
+          return true;
       }
     }
     return false;
+  }
+
+  bool is_reserved_Schedule() {
+    String selectedTimeStr = selectedTime != null
+        ? selectedTime!.toString().substring(10, 15)
+        : '';
+
+    String selectedDateStr = selectedDate != null
+        ? selectedDate.toString().substring(0, 10)
+        : '';
+
+    for (int i = 0; i < products3.length; i++) {
+      String scheduleTimeStr = products3[i]['Time'].toString().substring(0, 5);
+      String scheduleDateStr = products3[i]['Date'].toString();
+
+      if (products2[unit]["idDoctors"] == products3[i]["idDoctors"]) {
+        if (scheduleTimeStr == selectedTimeStr && scheduleDateStr == selectedDateStr) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
 

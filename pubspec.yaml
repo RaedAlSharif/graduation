@@ -33,7 +33,7 @@ dependencies:
   flutter_svg: ^0.22.0
   url_launcher: ^6.1.11
   email_validator: ^2.1.17
-  xen_popup_card: ^0.0.1
+  flutter_otp_text_field: ^1.1.1
   flutter:
     sdk: flutter
 
@@ -65,15 +65,5 @@ flutter:
   uses-material-design: true
 
   assets:
-    - icons/instagram.png
-    - icons/facebook.png
-    - icons/whatsapp.png
-    - icons/youtube.png
-    - icons/image1.jpg
-    - icons/image3.jpg
-    - icons/image2.jpg
-    - icons/Logo-modified.png
-    - icons/KidsImage2.jpg
-    - icons/adaults1.jpg
-    - icons/elder1.jpg
-    - icons/maps.jpg
+    - icons/
+    - images/
